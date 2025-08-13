@@ -1,20 +1,15 @@
 package org.example
-
-import java.util.Scanner
-
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
 
-    val scanner = Scanner(System.`in`)
-
     println("=== Calculadora de IMC ===")
 
     print("Digite seu peso (Kg): ")
-    val peso = scanner.nextDouble()
+    val peso = readLine()?.toDoubleOrNull() ?: return println("Peso inválido!")
 
     print("Digite sua altura (m): ")
-    val altura = scanner.nextDouble()
+    val altura = readLine()?.toDoubleOrNull() ?: return println("Altura inválida!")
 
     val imc = calcularIMC(peso, altura)
     val classificacao = classificarIMC(imc)
@@ -24,18 +19,13 @@ fun main() {
 
 }
 
-fun calcularIMC(peso: Double, altura: Double): Double {
-    return peso / (altura * altura)
-}
+fun calcularIMC(peso: Double, altura: Double) = peso / (altura * altura)
 
-fun classificarIMC(imc: Double): String {
-    return when {
-        imc < 18.5 -> "Abaixo do peso"
-        imc < 24.9 -> "Peso normal"
-        imc < 29.9 -> "Sobrepeso"
-        imc < 34.9 -> "Obesidade grau I"
-        imc < 39.9 -> "Obesidade grau II"
+fun classificarIMC(imc: Double) = when(imc) {
+        in 0.0..18.4 -> "Abaixo do peso"
+        in 18.5..24.9 -> "Peso normal"
+        in 25.0..29.9 -> "Sobrepeso"
+        in 30.0..34.9 -> "Obesidade grau I"
+        in 35.0..39.9 -> "Obesidade grau II"
         else -> "obesidade grau III"
-    }
-
 }
